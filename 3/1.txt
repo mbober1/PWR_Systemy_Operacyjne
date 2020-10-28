@@ -1,0 +1,52 @@
+Zwykłe wykonanie komendy ps
+
+[mbober@MANGO-OMEN ~]$ ps
+    PID TTY          TIME CMD
+   6313 pts/2    00:00:00 bash
+   6381 pts/2    00:00:00 ps
+
+
+
+Wykoananie komendy ps z flagą -f powodującą wyświetlenie pełnych inforamcji i procesach.
+
+[mbober@MANGO-OMEN ~]$ ps -f
+UID          PID    PPID  C STIME TTY          TIME CMD
+mbober      6313    6305  0 19:34 pts/2    00:00:00 /bin/bash
+mbober      6460    6313  0 19:37 pts/2    00:00:00 ps -f
+
+
+
+Wykoananie komendy ps z flagą -l powodującą wyświetlenie dłuższego formatu.
+
+[mbober@MANGO-OMEN ~]$ ps -l
+F S   UID     PID    PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+0 S  1000    6313    6305  0  80   0 -  2549 -      pts/2    00:00:00 bash
+4 R  1000    6631    6313  0  80   0 -  3045 -      pts/2    00:00:00 ps
+
+
+
+Wykoananie komendy ps z obiema flagami -f i -l
+
+[mbober@MANGO-OMEN ~]$ ps -f -l
+F S UID          PID    PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
+0 S mbober      6313    6305  0  80   0 -  2549 -      19:34 pts/2    00:00:00 /bin/bash
+4 R mbober      6632    6313  0  80   0 -  3065 -      19:39 pts/2    00:00:00 ps -f -l
+
+
+
+Ile Twoich procesów istniało w systemie w chwili przykładowego wywołania ps?
+Do tego zadania użyjemy flagi -A która wyświetli wszystkie procesy
+337
+
+
+Ile procesów sshd istniało w systemie (serwerze) w chwili wykonywania ćwiczenia (sprawdź polecenie pgrep)?
+[mbober@MANGO-OMEN ~]$ pgrep sshd
+[mbober@MANGO-OMEN ~]$ ps -A | grep sshd
+
+Nie istnaiał żaden. Ale sprawdziłem też na moim zewnętrzym serwerze i oto output:
+pi@PiMachine:~ $ pgrep sshd
+530
+27804
+27830
+27879
+27880

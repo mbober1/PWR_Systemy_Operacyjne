@@ -1,0 +1,46 @@
+Odpalamy proces
+
+[mbober@MANGO-OMEN 3]$ ./6.sh 
+28/10/2020 20:22:51
+28/10/2020 20:22:52
+28/10/2020 20:22:53
+28/10/2020 20:22:54
+28/10/2020 20:22:55
+28/10/2020 20:22:56
+28/10/2020 20:22:57
+28/10/2020 20:22:58
+28/10/2020 20:22:59
+
+na drugim terminalu wykonujemy:
+[mbober@MANGO-OMEN ~]$ pgrep 6.sh
+10505
+
+dowiadujemy się że PID naszego procesu to 10505
+wysyłamy sygnał:
+[mbober@MANGO-OMEN ~]$ kill -s SIGSTOP 10505
+
+
+Proces w pierwszej konsoli został zatrzymany:
+[1]+  Stopped                 ./6.sh
+Dokładnie tak samo jakbyśmy użyli Ctrl+Z
+
+
+na drugim terminalu wykonujemy:
+[mbober@MANGO-OMEN ~]$ kill -s SIGCONT 10505
+
+
+praca procesu zostaje wznowiona:
+[mbober@MANGO-OMEN 3]$ 28/10/2020 20:23:10
+28/10/2020 20:23:11
+28/10/2020 20:23:12
+28/10/2020 20:23:13
+28/10/2020 20:23:14
+28/10/2020 20:23:15
+28/10/2020 20:23:16
+
+równie dobrze moglibyśmy użyć komendy bg
+
+zauważyłem że po wznowieniu proces nie reaguje już na Ctrl+Z ani na Ctrl+C :(
+więc musiałem go zeksterminować ręcznie (kill -s SIGKILL 10505) [*]
+[1]+  Killed                  ./6.sh
+[mbober@MANGO-OMEN 3]$ 

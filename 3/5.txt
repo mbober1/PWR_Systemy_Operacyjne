@@ -1,0 +1,92 @@
+Uruchamiamy skrypt i podajemy mu wszystkie sygnały
+
+[mbober@MANGO-OMEN 3]$ /bin/sh 5.sh 
+31/10/2020 12:34:27
+31/10/2020 12:34:28
+31/10/2020 12:34:29
+31/10/2020 12:34:30
+31/10/2020 12:34:31
+31/10/2020 12:34:32
+31/10/2020 12:34:33
+31/10/2020 12:34:34
+31/10/2020 12:34:35
+31/10/2020 12:34:36
+31/10/2020 12:34:37
+31/10/2020 12:34:38
+31/10/2020 12:34:39
+You cant kill me!
+31/10/2020 12:34:40
+31/10/2020 12:34:41
+31/10/2020 12:34:42
+You cant kill me!
+31/10/2020 12:34:43
+31/10/2020 12:34:44
+You cant kill me!
+31/10/2020 12:34:45
+31/10/2020 12:34:46
+31/10/2020 12:34:47
+You cant kill me!
+31/10/2020 12:34:48
+31/10/2020 12:34:49
+You cant kill me!
+31/10/2020 12:34:50
+31/10/2020 12:34:51
+You cant kill me!
+31/10/2020 12:34:52
+31/10/2020 12:34:53
+31/10/2020 12:34:54
+31/10/2020 12:34:55
+31/10/2020 12:34:56
+You cant kill me!
+31/10/2020 12:34:57
+31/10/2020 12:34:58
+31/10/2020 12:34:59
+You cant kill me!
+31/10/2020 12:35:00
+31/10/2020 12:35:01
+You cant kill me!
+31/10/2020 12:35:02
+31/10/2020 12:35:03
+31/10/2020 12:35:04
+You cant kill me!
+31/10/2020 12:35:05
+31/10/2020 12:35:06
+You cant kill me!
+31/10/2020 12:35:07
+31/10/2020 12:35:08
+31/10/2020 12:35:09
+31/10/2020 12:35:10
+You cant kill me!
+31/10/2020 12:35:11
+31/10/2020 12:35:12
+You cant kill me!
+31/10/2020 12:35:13
+31/10/2020 12:35:14
+31/10/2020 12:35:15
+31/10/2020 12:35:16
+31/10/2020 12:35:17
+You cant kill me!
+31/10/2020 12:35:18
+31/10/2020 12:35:19
+31/10/2020 12:35:20
+Killed
+[mbober@MANGO-OMEN 3]$ 
+
+
+[mbober@MANGO-OMEN 3]$ kill -s 1 5490
+[mbober@MANGO-OMEN 3]$ kill -s 2 5490
+[mbober@MANGO-OMEN 3]$ kill -s 3 5490
+[mbober@MANGO-OMEN 3]$ kill -s 4 5490
+[mbober@MANGO-OMEN 3]$ kill -s 5 5490
+[mbober@MANGO-OMEN 3]$ kill -s 6 5490
+[mbober@MANGO-OMEN 3]$ kill -s 7 5490
+[mbober@MANGO-OMEN 3]$ kill -s 8 5490
+[mbober@MANGO-OMEN 3]$ kill -s 10 5490
+[mbober@MANGO-OMEN 3]$ kill -s 11 5490
+[mbober@MANGO-OMEN 3]$ kill -s 12 5490
+[mbober@MANGO-OMEN 3]$ kill -s 13 5490
+[mbober@MANGO-OMEN 3]$ kill -s 14 5490
+[mbober@MANGO-OMEN 3]$ kill -s 15 5490
+[mbober@MANGO-OMEN 3]$ kill -s 9 5490
+
+Dopiero sygnał SIGKILL (9) kończy proces

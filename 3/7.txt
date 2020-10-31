@@ -1,0 +1,72 @@
+Do wykonania tego zadania posłużę się skrypem z poprzedniego
+[mbober@MANGO-OMEN 3]$ ./6.sh
+
+Domyślnie nasz proces startuje z piorytetem równym 19 i liczbą nice równą 0.
+
+[mbober@MANGO-OMEN ~]$ ps -o pid,pri,nice,comm -f 
+    PID PRI  NI COMMAND
+   6097  19   0 bash
+   9038  19   0  \_ ps
+   5880  19   0 bash
+   9033  19   0  \_ 6.sh
+   9037  19   0      \_ sleep
+
+
+
+Możemy zmienić naszą liczbę nice na większą np.10 co spowoduje zmniejszenie piorytetu.
+
+[mbober@MANGO-OMEN ~]$ renice 10 9033
+9033 (process ID) old priority 0, new priority 10
+[mbober@MANGO-OMEN ~]$ ps -o pid,pri,nice,comm -f 
+    PID PRI  NI COMMAND
+   6097  19   0 bash
+   9120  19   0  \_ ps
+   5880  19   0 bash
+   9033   9  10  \_ 6.sh
+   9119   9  10      \_ sleep
+
+[mbober@MANGO-OMEN ~]$ renice 19 9033
+9033 (process ID) old priority 10, new priority 19
+[mbober@MANGO-OMEN ~]$ ps -o pid,pri,nice,comm -f 
+    PID PRI  NI COMMAND
+   6097  19   0 bash
+   9148  19   0  \_ ps
+   5880  19   0 bash
+   9033   0  19  \_ 6.sh
+   9147   0  19      \_ sleep
+
+
+
+Aby ustawić liczę nice mniejszą niż 0, 
+a co za tym idzie podnieść piorytet naszego procesu powyżej startowego poziomu,
+niezbędne są uprawnienia administratora.
+
+[mbober@MANGO-OMEN ~]$ sudo renice -20 9033
+9033 (process ID) old priority 19, new priority -20
+[mbober@MANGO-OMEN ~]$ ps -o pid,pri,nice,comm -f 
+    PID PRI  NI COMMAND
+   6097  19   0 bash
+   9192  19   0  \_ ps
+   5880  19   0 bash
+   9033  39 -20  \_ 6.sh
+   9191  39 -20      \_ sleep
+[mbober@MANGO-OMEN ~]$ 
+
+
+
+Aby wystartować proces z wartością nice większą niż domyślna wystarczy:
+
+[mbober@MANGO-OMEN 3]$ nice -10 ./6.sh
+[mbober@MANGO-OMEN ~]$ ps -o pid,pri,nice,comm -f 
+    PID PRI  NI COMMAND
+   6097  19   0 bash
+   9930  19   0  \_ ps
+   5880  19   0 bash
+   9924   9  10  \_ 6.sh
+   9931   9  10      \_ sleep
+
+
+Aby wystartować proces z wartością nice mniejszą niż domyślna wystarczy
+[mbober@MANGO-OMEN 3]$ nice --10 ./6.sh 
+
+

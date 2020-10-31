@@ -70,3 +70,33 @@ Aby wystartować proces z wartością nice mniejszą niż domyślna wystarczy
 [mbober@MANGO-OMEN 3]$ nice --10 ./6.sh 
 
 
+
+Mój pomysł na przetestowanie zmiany priorytetów był prosty a zarazem skuteczny.
+Użyłem programu stress aby wymusić prace procesora w moim laptopie:
+
+[mbober@MANGO-OMEN 3]$ stress --cpu 12 &
+
+
+
+A następnie używając programu sysbench wykonałem kolejno 3 różne testy.
+
+[mbober@MANGO-OMEN 3]$ sysbench cpu --threads=12 
+[mbober@MANGO-OMEN 3]$ nice -19 sysbench cpu --threads=12 run
+[mbober@MANGO-OMEN 3]$ sudo nice --19 sysbench cpu --threads=12 run
+
+
+Wynik dla domyślnego priorytetu
+CPU speed:
+    events per second:  5477.73
+
+Wynik dla najniższego priorytetu
+CPU speed:
+    events per second:   234.26
+
+Wynik dla najwyższego priorytetu
+CPU speed:
+    events per second: 11594.26
+
+Jak widać wszystko działa tak jak należy. 
+Im wyższy priorytet tym proces dostaje więcej czasu procesora, 
+co bezpośrednio przekłada się na wynik benchmarku.

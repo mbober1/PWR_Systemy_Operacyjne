@@ -1,0 +1,27 @@
+[mbober@MANGO-OMEN ~]$ bash
+[mbober@MANGO-OMEN ~]$ bash
+[mbober@MANGO-OMEN ~]$ bash
+
+Wywołujemy 3 interpretery basha, jeden w drugim.
+[mbober@MANGO-OMEN ~]$ ps -f -l -a
+F S UID          PID    PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
+0 S mbober      2707    2700  0  80   0 -  2549 -      11:45 pts/1    00:00:00 bash
+0 S mbober      2762    2707  0  80   0 -  2549 -      11:47 pts/1    00:00:00 bash
+0 S mbober      2766    2762  0  80   0 -  2549 -      11:47 pts/1    00:00:00 bash
+0 S mbober      2770    2766  0  80   0 -  2549 -      11:47 pts/1    00:00:00 bash
+4 R mbober      2824    2749  0  80   0 -  3065 -      11:48 pts/2    00:00:00 ps -f -l -a
+
+Jak można zaobserwować, każdy kolejny jest potomkiem poprzednika.
+[mbober@MANGO-OMEN ~]$ kill -9 2766
+Zabijamy przedostatniego [*]
+
+
+[mbober@MANGO-OMEN ~]$ ps -f -l -a
+F S UID          PID    PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
+0 S mbober      2707    2700  0  80   0 -  2549 -      11:45 pts/1    00:00:00 bash
+0 S mbober      2762    2707  0  80   0 -  2549 -      11:47 pts/1    00:00:00 bash
+0 S mbober      2770       1  0  80   0 -  2549 -      11:47 pts/1    00:00:00 bash
+4 R mbober      2829    2749  0  80   0 -  3065 -      11:48 pts/2    00:00:00 ps -f -l -a
+
+Ostatni zostaje osierocony i automatycznie adoptowany przez proces z PID 1 czyli Init.
+

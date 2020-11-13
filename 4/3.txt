@@ -146,3 +146,35 @@ Zwraca komende wywołującą proces.
 [mbober@MANGO-OMEN ~]$ cat /proc/30392/cmdline 
 ./a.out
 
+
+Mapa pamięci
+[mbober@MANGO-OMEN ~]$ cat /proc/30392/maps
+563766243000-563766244000 r--p 00000000 08:02 2361178                    /home/mbober/Documents/SCR/1/4/a.out
+563766244000-563766245000 r-xp 00001000 08:02 2361178                    /home/mbober/Documents/SCR/1/4/a.out
+563766245000-563766246000 r--p 00002000 08:02 2361178                    /home/mbober/Documents/SCR/1/4/a.out
+563766246000-563766247000 r--p 00002000 08:02 2361178                    /home/mbober/Documents/SCR/1/4/a.out
+563766247000-563766248000 rw-p 00003000 08:02 2361178                    /home/mbober/Documents/SCR/1/4/a.out
+563767251000-563767272000 rw-p 00000000 00:00 0                          [heap]
+7f368307c000-7f368307e000 rw-p 00000000 00:00 0 
+7f368307e000-7f36830a4000 r--p 00000000 08:02 18621421                   /usr/lib/libc-2.32.so
+7f36830a4000-7f36831f1000 r-xp 00026000 08:02 18621421                   /usr/lib/libc-2.32.so
+7f36831f1000-7f368323d000 r--p 00173000 08:02 18621421                   /usr/lib/libc-2.32.so
+7f368323d000-7f3683240000 r--p 001be000 08:02 18621421                   /usr/lib/libc-2.32.so
+7f3683240000-7f3683243000 rw-p 001c1000 08:02 18621421                   /usr/lib/libc-2.32.so
+7f3683243000-7f3683249000 rw-p 00000000 00:00 0 
+7f3683281000-7f3683283000 r--p 00000000 08:02 18621406                   /usr/lib/ld-2.32.so
+7f3683283000-7f36832a4000 r-xp 00002000 08:02 18621406                   /usr/lib/ld-2.32.so
+7f36832a4000-7f36832ad000 r--p 00023000 08:02 18621406                   /usr/lib/ld-2.32.so
+7f36832ad000-7f36832ae000 r--p 0002b000 08:02 18621406                   /usr/lib/ld-2.32.so
+7f36832ae000-7f36832b0000 rw-p 0002c000 08:02 18621406                   /usr/lib/ld-2.32.so
+7ffce6155000-7ffce6176000 rw-p 00000000 00:00 0                          [stack]
+7ffce61ba000-7ffce61be000 r--p 00000000 00:00 0                          [vvar]
+7ffce61be000-7ffce61c0000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+
+Numer urzytkownika wywołującego program
+[mbober@MANGO-OMEN ~]$ cat /proc/30392/loginuid 
+1000
+
+i mase innych rzeczy ale nie mam już czasu bo kolejne zadania nie zrobione...

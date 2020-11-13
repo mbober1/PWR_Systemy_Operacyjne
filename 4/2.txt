@@ -2,3 +2,11 @@ SIGTERM - wyświetlenie komunikatu i zakończenie pracy programu
 SIGALRM - wyświetlenie komunikatu i powrót do wykonywania programu
 SIGUSR1 - całkowite ignorowanie sygnału
 SIGUSR2 - wstrzymywanie odebrania sygnału 
+
+[mbober@MANGO-OMEN 4]$ ./a.out 
+Sygnał 15 przechwycony
+[mbober@MANGO-OMEN 4]$ ./a.out 
+Sygnał 14 przechwycony
+Kontynuję pracę
+[mbober@MANGO-OMEN 4]$ ./a.out 
+Sygnał 14 przechwycony

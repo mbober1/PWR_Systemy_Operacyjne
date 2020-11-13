@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
     for(;;) {
         i++;
         sleep(1);
+        printf("jakiś tekst\n");
     }
 
     return 0;

@@ -1,0 +1,57 @@
+Wypisuje się w złej kolejności. Nie jest to wada, tylko cecha...
+Wynika to z asynchoroniczności.
+
+[mbober@MANJAROMEN 7]$ ./a.out 
+Hello SCR. Written by thread 0 
+Hello SCR. Written by thread 1 
+Hello SCR. Written by thread 2 
+Hello SCR. Written by thread 5 
+Hello SCR. Written by thread 4 
+Hello SCR. Written by thread 6 
+Hello SCR. Written by thread 3 
+Hello SCR. Written by thread 7 
+Hello SCR. Written by thread 8 
+Hello SCR. Written by thread 9 
+Hello SCR. Written by thread 10 
+Hello SCR. Written by thread 11 
+Hello SCR. Written by thread 12 
+Hello SCR. Written by thread 13 
+Hello SCR. Written by thread 14 
+Hello SCR. Written by thread 15 
+Hello SCR. Written by thread 16 
+Hello SCR. Written by thread 17 
+Hello SCR. Written by thread 18 
+Hello SCR. Written by thread 19 
+Hello SCR. Written by thread 20 
+Hello SCR. Written by thread 21 
+Hello SCR. Written by thread 22 
+Hello SCR. Written by thread 23 
+Hello SCR. Written by thread 24 
+Hello SCR. Written by thread 25 
+Hello SCR. Written by thread 26 
+Hello SCR. Written by thread 27 
+Hello SCR. Written by thread 28 
+Hello SCR. Written by thread 29 
+Hello SCR. Written by thread 30 
+Hello SCR. Written by thread 31 
+Hello SCR. Written by thread 32 
+Hello SCR. Written by thread 33 
+Hello SCR. Written by thread 34 
+Hello SCR. Written by thread 35 
+Hello SCR. Written by thread 36 
+Hello SCR. Written by thread 37 
+Hello SCR. Written by thread 38 
+Hello SCR. Written by thread 39 
+Hello SCR. Written by thread 40 
+Hello SCR. Written by thread 41 
+Hello SCR. Written by thread 42 
+Hello SCR. Written by thread 43 
+Hello SCR. Written by thread 44 
+Hello SCR. Written by thread 46 
+Hello SCR. Written by thread 45 
+Hello SCR. Written by thread 47 
+Hello SCR. Written by thread 48 
+Hello SCR. Written by thread 49 
+
+
+

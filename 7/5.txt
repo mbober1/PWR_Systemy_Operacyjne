@@ -1,0 +1,2 @@
+Funkcja join zatrzymuje wykonywanie się głównej funkcji i nie pozwala potomkom się skończyć przed zakoćzeniem obliczeń.
+Funkcja detached sprawia że główna funkcja działa dalej i może się skończyć w dowolnej chwili, nie powodując zabicia potomków.

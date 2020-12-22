@@ -1,0 +1,2 @@
+Błędem było przekazywanie wskaźnika do zmiennej zamiast jej kopi, 
+ponieważ zmieniała ona swoją wartość jeszcze zanim została ona wypisana.

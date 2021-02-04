@@ -1,0 +1,60 @@
+Tworzymy potok poleceniem
+[mbober@MANGO-OMEN ~]$ mknod FIFKA p
+
+Otwiermy 4 okna, 2 czytające, 2 piszące
+
+1 okno (piszące):
+[mbober@MANGO-OMEN ~]$ cat > FIFKA
+1
+2
+3
+4
+4
+5
+6
+7
+
+
+2 okno (piszące):
+[mbober@MANGO-OMEN ~]$ cat > FIFKA 
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+
+
+3 okno (czytające):
+[mbober@MANGO-OMEN ~]$ cat FIFKA
+1
+2
+4
+5
+7
+12
+14
+15
+17
+19
+
+
+4 okno (czytające):
+[mbober@MANGO-OMEN ~]$ cat FIFKA 
+3
+6
+11
+13
+16
+18
+20
+
+
+Procesy czytające kończą pracę, gdy nie ma już żadnych procesów piszących.
+Procesy piszące samoistnie kończą pracę,
+ gdy odczytamy wszystkie znaki z potoku i zamkniemy już wszystkie procesy czytające. 
+Czekają one wtedy na wciśnięcie enter i kończą pracę.

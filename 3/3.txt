@@ -1,0 +1,20 @@
+[mbober@MANGO-OMEN 3]$ ./3.sh | cat | cat | cat | cat | cat | cat | cat | cat > /dev/null
+^Z
+[1]+  Stopped                 ./3.sh | cat | cat | cat | cat | cat | cat | cat | cat > /dev/null
+[mbober@MANGO-OMEN 3]$ ps -f -l
+F S UID          PID    PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
+0 S mbober      8362    8354  0  80   0 -  2549 -      20:00 pts/2    00:00:00 /bin/bash
+0 T mbober      8714    8362 26  80   0 -  2430 -      20:04 pts/2    00:00:02 /bin/bash ./3.sh
+0 T mbober      8715    8362 18  80   0 -  2001 -      20:04 pts/2    00:00:01 cat
+0 T mbober      8716    8362 17  80   0 -  2001 -      20:04 pts/2    00:00:01 cat
+0 T mbober      8717    8362 16  80   0 -  2001 -      20:04 pts/2    00:00:01 cat
+0 T mbober      8718    8362 15  80   0 -  2001 -      20:04 pts/2    00:00:01 cat
+0 T mbober      8719    8362 15  80   0 -  2001 -      20:04 pts/2    00:00:01 cat
+0 T mbober      8720    8362 15  80   0 -  2001 -      20:04 pts/2    00:00:01 cat
+0 T mbober      8721    8362 14  80   0 -  2001 -      20:04 pts/2    00:00:01 cat
+0 T mbober      8722    8362 11  80   0 -  2001 -      20:04 pts/2    00:00:01 cat
+4 R mbober      8725    8362  0  80   0 -  3065 -      20:04 pts/2    00:00:00 ps -f -l
+[mbober@MANGO-OMEN 3]$ 
+
+
+Jak widać na załączonym powyżej logu, skrypt (/bin/bash ./3.sh) i 9 catów są potomkami basha, który też jest potomkiem jakiegoś procesu.

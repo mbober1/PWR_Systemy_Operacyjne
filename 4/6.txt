@@ -1,0 +1,348 @@
+1. przeanalizuj wykonanie się programu wyświetlającego napis Hello world na ekranie, 
+odczytaj jakie file deskryptory posiada uruchomiona aplikacja wyświetlająca napis Hello world na ekranie,
+
+[mbober@MANGO-OMEN 4]$ strace ./a.out 
+execve("./a.out", ["./a.out"], 0x7ffc424b0510 /* 63 vars */) = 0                                                            #wywołanie programu i przekopiowanie kod do nowego forka
+brk(NULL)                               = 0x556ac5f86000                                                                    #prawdopodobnie jakieś przerwanie
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffe65732410) = -1 EINVAL (Invalid argument)
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)                                             #dostęp do pliku
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 6
+fstat(6, {st_mode=S_IFREG|0644, st_size=226245, ...}) = 0                                                                   #status pliku wskazywany przez ścieżkę
+mmap(NULL, 226245, PROT_READ, MAP_PRIVATE, 6, 0) = 0x7fba6ac35000                                                           #mapy pamięci
+close(6)                                = 0                                                                                 #zamyka deskryptor
+openat(AT_FDCWD, "/usr/lib/libc.so.6", O_RDONLY|O_CLOEXEC) = 6
+read(6, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\202\2\0\0\0\0\0"..., 832) = 832
+pread64(6, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(6, "\4\0\0\0\20\0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0", 32, 848) = 32
+pread64(6, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\207\360\21\247\344\314?\306\nT\320\323\335i\16t"..., 68, 880) = 68
+fstat(6, {st_mode=S_IFREG|0755, st_size=2159552, ...}) = 0                                                                  #status pliku wskazywany przez ścieżkę
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fba6ac33000                                   #mapy pamięci
+pread64(6, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 1868448, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 6, 0) = 0x7fba6aa6a000
+mmap(0x7fba6aa90000, 1363968, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 6, 0x26000) = 0x7fba6aa90000        #mapy pamięci
+mmap(0x7fba6abdd000, 311296, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 6, 0x173000) = 0x7fba6abdd000                  #mapy pamięci
+mmap(0x7fba6ac29000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 6, 0x1be000) = 0x7fba6ac29000        #mapy pamięci
+mmap(0x7fba6ac2f000, 12960, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fba6ac2f000              #mapy pamięci
+close(6)                                = 0                                                                                 #zamyka deskryptor
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fba6aa68000                                   #mapy pamięci
+arch_prctl(ARCH_SET_FS, 0x7fba6ac34540) = 0
+mprotect(0x7fba6ac29000, 12288, PROT_READ) = 0
+mprotect(0x556ac4e70000, 4096, PROT_READ) = 0
+mprotect(0x7fba6ac99000, 4096, PROT_READ) = 0
+munmap(0x7fba6ac35000, 226245)          = 0                                                                                 #zwalnianie pamięci
+fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x2), ...}) = 0                                                       #status pliku wskazywany przez ścieżkę
+brk(NULL)                               = 0x556ac5f86000                                                                    #prawdopodobnie jakieś przerwanie
+brk(0x556ac5fa7000)                     = 0x556ac5fa7000                                                                    #prawdopodobnie jakieś przerwanie
+write(1, "Hello World!", 12Hello World!)            = 12                                                                    #wypisz Hello World
+exit_group(0)                           = ?
++++ exited with 0 +++                                                                                                       #program zakończył się poprawnie
+
+posiada deskryptory 1 i 6
+
+
+[mbober@MANGO-OMEN 4]$ strace -c ./a.out 
+Hello World!% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+  0,00    0,000000           0         1           read
+  0,00    0,000000           0         1           write
+  0,00    0,000000           0         2           close
+  0,00    0,000000           0         3           fstat
+  0,00    0,000000           0         8           mmap
+  0,00    0,000000           0         3           mprotect
+  0,00    0,000000           0         1           munmap
+  0,00    0,000000           0         3           brk
+  0,00    0,000000           0         4           pread64
+  0,00    0,000000           0         1         1 access
+  0,00    0,000000           0         1           execve
+  0,00    0,000000           0         2         1 arch_prctl
+  0,00    0,000000           0         2           openat
+------ ----------- ----------- --------- --------- ----------------
+100,00    0,000000           0        32         2 total
+
+
+2. wykorzystaj program strace do znalezienia wszystkich plików konfiguracyjnych, jakie powłoka próbuje odczytać przy starcie,
+
+
+[mbober@MANGO-OMEN ~]$ strace -f -e trace=openat bash
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/libreadline.so.8", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/libncursesw.so.6", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/dev/tty", O_RDWR|O_NONBLOCK) = 3
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/gconv/gconv-modules.cache", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/gconv/gconv-modules", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/etc/nsswitch.conf", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/libnss_files.so.2", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/share/terminfo/x/xterm-256color", O_RDONLY) = 3
+openat(AT_FDCWD, "/etc/bash.bashrc", O_RDONLY) = 3
+openat(AT_FDCWD, "/home/mbober/.bashrc", O_RDONLY) = 3
+strace: Process 38310 attached
+[pid 38310] openat(AT_FDCWD, "/home/mbober/.dir_colors", O_RDONLY) = 3
+[pid 38310] +++ exited with 0 +++
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=38310, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+openat(AT_FDCWD, "/dev/null", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3
+strace: Process 38311 attached
+[pid 38311] openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+[pid 38311] openat(AT_FDCWD, "/usr/lib/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+[pid 38311] openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+[pid 38311] openat(AT_FDCWD, "/home/mbober/.dir_colors", O_RDONLY) = 3
+[pid 38311] openat(AT_FDCWD, "/usr/lib/gconv/gconv-modules.cache", O_RDONLY) = -1 ENOENT (No such file or directory)
+[pid 38311] openat(AT_FDCWD, "/usr/lib/gconv/gconv-modules", O_RDONLY|O_CLOEXEC) = 3
+[pid 38311] +++ exited with 0 +++
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=38311, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+strace: Process 38312 attached
+[pid 38312] openat(AT_FDCWD, "/dev/null", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3
+[pid 38312] openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+[pid 38312] openat(AT_FDCWD, "/usr/share/locale/en_US.UTF-8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+[pid 38312] openat(AT_FDCWD, "/usr/share/locale/en_US.utf8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+[pid 38312] openat(AT_FDCWD, "/usr/share/locale/en_US/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+[pid 38312] openat(AT_FDCWD, "/usr/share/locale/en.UTF-8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+[pid 38312] openat(AT_FDCWD, "/usr/share/locale/en.utf8/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+[pid 38312] openat(AT_FDCWD, "/usr/share/locale/en/LC_MESSAGES/bash.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+[pid 38312] +++ exited with 127 +++
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=38312, si_uid=1000, si_status=127, si_utime=0, si_stime=0} ---
+openat(AT_FDCWD, "/home/mbober/.bash_history", O_RDONLY) = 3
+openat(AT_FDCWD, "/home/mbober/.bash_history", O_RDONLY) = 3
+openat(AT_FDCWD, "/home/mbober/.inputrc", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/inputrc", O_RDONLY) = 3
+
+
+3. sprawdź czy plik edytowany w programie pico jest stale otwarty,
+[mbober@MANGO-OMEN ~]$ pico
+bash: pico: command not found
+[mbober@MANGO-OMEN ~]$ sudo pacman -S pico
+[sudo] password for mbober: 
+error: target not found: pico
+[mbober@MANGO-OMEN ~]$ 
+
+Na archu nie mogłem tego programu znaleźć. Dopiero na ubuntopodobnym systemie było.
+
+Plik nie jest stale otwarty.
+Jest otwierany na początku w celu odczytu (t.txt). 
+Potem tworzony jest plik buforowy (t.txt.swp). 
+Na końcu przyzapisywaniu plik jest ponownie otwierany w celu zapisu całości.
+
+
+pi@PiMachine:~ $ strace -p 23629
+strace: Process 23629 attached
+read(0, "f", 1)                         = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302280, tv_usec=938066}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302280, tv_usec=939095}, NULL) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\33[1;227H", 8)               = 8
+write(1, "\33(B\33[0;7mModified", 17)   = 17
+write(1, "\33(B\33[m", 6)               = 6
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+getcwd("/home/pi", 4097)                = 9
+stat64("t.txt", 0xffa3e138)             = -1 ENOENT (No such file or directory)
+getpid()                                = 23629
+geteuid32()                             = 1000
+openat(AT_FDCWD, "/etc/passwd", O_RDONLY|O_CLOEXEC) = 3
+_llseek(3, 0, [0], SEEK_CUR)            = 0
+fstat64(3, {st_mode=S_IFREG|0644, st_size=1732, ...}) = 0
+read(3, "root:x:0:0:root:/root:/bin/bash\n"..., 4096) = 1732
+close(3)                                = 0
+uname({sysname="Linux", nodename="PiMachine", ...}) = 0
+stat64("./.t.txt.swp", {st_mode=S_IFREG|0644, st_size=1024, ...}) = 0
+unlink("./.t.txt.swp")                  = 0
+openat(AT_FDCWD, "./.t.txt.swp", O_WRONLY|O_CREAT|O_EXCL|O_APPEND|O_LARGEFILE, 0666) = 3
+fcntl64(3, F_GETFL)                     = 0x20401 (flags O_WRONLY|O_APPEND|O_LARGEFILE)
+fstat64(3, {st_mode=S_IFREG|0644, st_size=0, ...}) = 0
+write(3, "b0nano 3.2\0\0\0\0\0\0\0\0\0\0\0\0\0\0M\\\0\0pi\0\0"..., 1024) = 1024
+close(3)                                = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\r\33[3d", 5)                 = 5
+write(1, "f", 1)                        = 1
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+write(1, "\33[?12l\33[?25h", 12)        = 12
+read(0, "d", 1)                         = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302281, tv_usec=129366}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302281, tv_usec=130579}, NULL) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "d", 1)                        = 1
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+write(1, "\33[?12l\33[?25h", 12)        = 12
+read(0, "f", 1)                         = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302281, tv_usec=345381}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302281, tv_usec=346096}, NULL) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "f", 1)                        = 1
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+write(1, "\33[?12l\33[?25h", 12)        = 12
+read(0, "d", 1)                         = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302281, tv_usec=539451}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302281, tv_usec=540126}, NULL) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 1 ([{fd=0, revents=POLLIN}])
+write(1, "d", 1)                        = 1
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+write(1, "\33[?12l\33[?25h", 12)        = 12
+read(0, "f", 1)                         = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302281, tv_usec=543337}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302281, tv_usec=544017}, NULL) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "f", 1)                        = 1
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+write(1, "\33[?12l\33[?25h", 12)        = 12
+read(0, "f", 1)                         = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302281, tv_usec=632255}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302281, tv_usec=632836}, NULL) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "f", 1)                        = 1
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+write(1, "\33[?12l\33[?25h", 12)        = 12
+read(0, "d", 1)                         = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302281, tv_usec=828487}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302281, tv_usec=829153}, NULL) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "d", 1)                        = 1
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+write(1, "\33[?12l\33[?25h", 12)        = 12
+read(0, "f", 1)                         = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302281, tv_usec=937277}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302281, tv_usec=937979}, NULL) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "f", 1)                        = 1
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+write(1, "\33[?12l\33[?25h", 12)        = 12
+read(0, "\30", 1)                       = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302390, tv_usec=560062}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302390, tv_usec=561277}, NULL) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\r\33[54d", 6)                = 6
+write(1, "\33(B\33[0;7mSave modified buffer?  "..., 252) = 252
+write(1, " Y\33(B\33[m Yes\33[K\r\33[56d", 21) = 21
+write(1, "\33(B\33[0;7m N\33(B\33[m No  \33[56;17H", 30) = 30
+write(1, "\33(B\33[0;7m^C\33(B\33[m Cancel\33[K\33[54;"..., 35) = 35
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+write(1, "\33[?12l\33[?25h", 12)        = 12
+read(0, "y", 1)                         = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302391, tv_usec=479215}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302391, tv_usec=480425}, NULL) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\r\33[55d", 6)                = 6
+write(1, "\33(B\33[0;7m^G\33(B\33[m Get Help\33[55;6"..., 34) = 34
+write(1, "\33(B\33[0;7mM-D\33(B\33[m DOS Format\33[5"..., 38) = 38
+write(1, "\33(B\33[0;7mM-A\33(B\33[m Append\33[55;17"..., 34) = 34
+write(1, "\33(B\33[0;7mM-B\33(B\33[m Backup File\r\33"..., 36) = 36
+write(1, "\33(B\33[0;7m^C\33(B\33[m Cancel\33[17G", 29) = 29
+write(1, "         \33[56;60H", 17)     = 17
+write(1, "\33(B\33[0;7mM-M\33(B\33[m Mac Format\33[5"..., 38) = 38
+write(1, "\33(B\33[0;7mM-P\33(B\33[m Prepend\33[56;1"..., 35) = 35
+write(1, "\33(B\33[0;7m^T\33(B\33[m To Files\r\33[54d", 32) = 32
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\33(B\33[0;7mFile Name to Write: t.t"..., 71) = 71
+write(1, "\33(B\33[m", 6)               = 6
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\33[54;26H", 8)               = 8
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+write(1, "\33[?12l\33[?25h", 12)        = 12
+read(0, "\r", 1)                        = 1
+write(1, "\33[?25l", 6)                 = 6
+gettimeofday({tv_sec=1605302393, tv_usec=304511}, NULL) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+gettimeofday({tv_sec=1605302393, tv_usec=305347}, NULL) = 0
+getcwd("/home/pi", 4097)                = 9
+stat64("t.txt", 0xffa3e0c8)             = -1 ENOENT (No such file or directory)
+getcwd("/home/pi", 4097)                = 9
+stat64("t.txt", 0xffa3e0c8)             = -1 ENOENT (No such file or directory)
+stat64("/home/pi/t.txt", 0xffa3e188)    = -1 ENOENT (No such file or directory)
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\r", 1)                       = 1
+write(1, "\33[K\33[1;235H", 11)         = 11
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+stat64("t.txt", 0xffa3e0c0)             = -1 ENOENT (No such file or directory)
+umask(000)                              = 022
+umask(022)                              = 000
+openat(AT_FDCWD, "t.txt", O_WRONLY|O_CREAT|O_TRUNC|O_LARGEFILE, 0666) = 3
+umask(022)                              = 022
+fcntl64(3, F_GETFL)                     = 0x20001 (flags O_WRONLY|O_LARGEFILE)
+fstat64(3, {st_mode=S_IFREG|0644, st_size=0, ...}) = 0
+write(3, "fdfdffdf\n", 9)               = 9
+close(3)                                = 0
+stat64("t.txt", {st_mode=S_IFREG|0644, st_size=9, ...}) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\33[1;227H", 8)               = 8
+write(1, "\33(B\33[0;7m        ", 17)   = 17
+write(1, "\33(B\33[m", 6)               = 6
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\33[54;111H", 9)              = 9
+write(1, "\33(B\33[0;7m[ Wrote 1 line ]", 25) = 25
+write(1, "\33(B\33[m", 6)               = 6
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+unlink("./.t.txt.swp")                  = 0
+rt_sigaction(SIGTSTP, {sa_handler=SIG_IGN, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0xf7635120}, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, 8) = 0
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\r", 1)                       = 1
+poll([{fd=0, events=POLLIN}], 1, 0)     = 0 (Timeout)
+write(1, "\33[J\33[56;236H", 12)        = 12
+rt_sigaction(SIGTSTP, {sa_handler=0x23fac, sa_mask=~[KILL STOP RTMIN RT_1], sa_flags=SA_RESTORER, sa_restorer=0xf7635120}, NULL, 8) = 0
+brk(0x1d50000)                          = 0x1d50000
+write(1, "\33[?12l\33[?25h", 12)        = 12
+write(1, "\33[56;1H\33[?1049l\33[23;0;0t\r\33[?1l\33>", 32) = 32
+ioctl(1, TCGETS, {B38400 -opost -isig -icanon -echo ...}) = 0
+ioctl(1, SNDCTL_TMR_STOP or TCSETSW, {B38400 opost isig icanon echo ...}) = 0
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(0, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(0, SNDCTL_TMR_START or TCSETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(0, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+exit_group(0)                           = ?
++++ exited with 0 +++

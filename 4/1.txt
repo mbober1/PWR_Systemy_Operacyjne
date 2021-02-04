@@ -1,0 +1,18 @@
+1. Bez opóżnienia
+
+%Cpu(s):  9,8 us,  1,4 sy,  0,0 ni, 88,6 id,  0,0 wa,  0,1 hi,  0,1 si,  0,0 st
+MiB Mem :  15885,9 total,   8132,8 free,   3074,5 used,   4678,6 buff/cache
+MiB Swap:      0,0 total,      0,0 free,      0,0 used.  12280,7 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                                                                                                                                              
+  27325 mbober    20   0    2208    712    636 R 100,0   0,0   0:13.85 a.out                                                                                                                                                                
+  24352 mbober    20   0 5731176 429492 174896 S  24,0   2,6  20:54.28 zoom                                                                                                                                                                 
+   1614 mbober     9 -11 1623740  16328  12040 S  10,0   0,1  37:51.17 pulseaudio                                                                                                                                                           
+   1224 root     -51   0       0      0      0 S   2,7   0,0  10:18.15 irq/162-nvidia                                                                                                                                                       
+   1130 root      20   0  132800  79428  45172 S   1,0   0,5  13:22.58 Xorg                                                                                                                                                                 
+   1809 mbober    20   0  157420   5952   2880 S   0,7   0,0   3:08.04 nvidia-smi  
+
+
+2. Z opóżnieniem na próżno szukać procesu a.out
+top -d 0.1
+

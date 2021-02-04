@@ -1,0 +1,3 @@
+Program nie wyświetla komunikatów kolejno. 
+Wynika to z asychronicznośći wykonywania się poszczególnych wątków. 
+Z tego powodu nie mamy żadnej gwarancji że wykonają się one kolejno.

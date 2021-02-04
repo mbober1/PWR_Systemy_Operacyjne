@@ -1,0 +1,4 @@
+Program powoduje problemy przez zbyt mały stos.
+
+Aby to naprawić należy zwiększyć wielkość stosu (z jakimś zapasem) i 
+w drugim argumencie funkcji pthread_create przekazać informacje o tym ( w postaci sturktury pthread_attr_t)

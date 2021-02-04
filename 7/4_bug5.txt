@@ -1,0 +1,5 @@
+Program kończy swoją pracę zanim wątki jeszcze zdążą wszystko policzyć.
+Dzieje się tak bo rodzic nie czeka na swoje niesforne dzieciaczki i je eksterminuje zanim skończą.
+Należy więc zatrzymać funkcję główną tak długo aż potomkowie pokończą obliczenia. 
+Najproście zrobić to za pomocą sleep, ale nie wiemy jak długo czekać i zmienia się to w zależności od sprzętu,
+więc dużo bardziej optymalnym rozwiązaniem jest użycie pthread_join.
